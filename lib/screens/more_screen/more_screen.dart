@@ -11,19 +11,19 @@ class _MoreScreenState extends State<MoreScreen> {
   List<CardData> cardsData = [
     CardData(
       leading: const Icon(Icons.card_giftcard),
-      title: 'Card 1',
+      title: 'Komatsu Global',
       onTap: () {},
       trailing: Icons.more,
     ),
     CardData(
       leading: const Icon(Icons.card_giftcard),
-      title: 'Card 2',
+      title: 'Contact Us',
       onTap: () {},
       trailing: Icons.more,
     ),
     CardData(
       leading: const Icon(Icons.card_giftcard),
-      title: 'Card 3',
+      title: 'About App',
       onTap: () {},
       trailing: Icons.more,
     ),
