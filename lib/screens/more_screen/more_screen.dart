@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/link.dart';
 
-class MoreScreen extends StatefulWidget {
-  const MoreScreen({super.key});
+import '../../constants/constants.dart';
+import '../../widgets/widgets.dart';
 
-  @override
-  State<MoreScreen> createState() => _MoreScreenState();
+class CardData {
+  final String imageUrl;
+  final String title;
+  final VoidCallback onTap;
+
+  CardData({
+    required this.imageUrl,
+    required this.title,
+    required this.onTap,
+  });
 }
 
-class _MoreScreenState extends State<MoreScreen> {
-  List<CardData> cardsData = [
+class MoreScreen extends StatelessWidget {
+  final List<CardData> cardsData = [
     CardData(
-      leading: const Icon(Icons.card_giftcard),
-      title: 'Komatsu Global',
-      onTap: () {},
-      trailing: Icons.more,
-    ),
-    CardData(
-      leading: const Icon(Icons.card_giftcard),
+      imageUrl: '$mainUrl/kpshub/logo/contact_us.png',
       title: 'Contact Us',
       onTap: () {},
-      trailing: Icons.more,
     ),
     CardData(
-      leading: const Icon(Icons.card_giftcard),
+      imageUrl: '$mainUrl/kpshub/logo/about_app.png',
       title: 'About App',
       onTap: () {},
-      trailing: Icons.more,
     ),
   ];
+
+  MoreScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +42,48 @@ class _MoreScreenState extends State<MoreScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Link(
+                target: LinkTarget.blank,
+                uri: Uri.parse(websiteUrl),
+                builder: (context, followLink) => GestureDetector(
+                  onTap: followLink,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: ListTile(
+                      leading: SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: CachedNetworkImage(
+                          imageUrl: '$mainUrl/kpshub/logo/website_appbar.png',
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      ),
+                      title: const Text('Komatsu Global'),
+                      trailing: const SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: Icon(Icons.navigate_next)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             for (var i = 0; i < cardsData.length; i++)
               Padding(
                 padding: i == 0
-                    ? const EdgeInsets.only(top: 50)
+                    ? const EdgeInsets.only(top: 20)
                     : const EdgeInsets.only(top: 20),
                 child: MoreScreenCard(
-                  leading: cardsData[i].leading,
+                  imageUrl: cardsData[i].imageUrl,
                   title: cardsData[i].title,
                   onTap: cardsData[i].onTap,
-                  trailing: cardsData[i].trailing,
                 ),
               ),
           ],
@@ -56,42 +93,35 @@ class _MoreScreenState extends State<MoreScreen> {
   }
 }
 
-class CardData {
-  final Icon leading;
-  final String title;
-  final IconData trailing;
-  final VoidCallback onTap;
-
-  CardData(
-      {required this.leading,
-      required this.title,
-      required this.trailing,
-      required this.onTap});
-}
-
 class MoreScreenCard extends StatelessWidget {
-  final Icon leading;
+  final String imageUrl;
   final String title;
-  final IconData trailing;
   final VoidCallback onTap;
-  const MoreScreenCard(
-      {super.key,
-      required this.leading,
-      required this.title,
-      required this.trailing,
-      required this.onTap});
+  const MoreScreenCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: ListTile(
-        leading: leading,
-        title: Text(title),
-        trailing: Icon(trailing),
-        onTap: onTap,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: ListTile(
+          leading: SizedBox(
+            width: 25,
+            height: 25,
+            child: CachedImageWidget(imageUrl: imageUrl),
+          ),
+          title: Text(title),
+          trailing: const SizedBox(
+              width: 25, height: 25, child: Icon(Icons.navigate_next)),
+        ),
       ),
     );
   }

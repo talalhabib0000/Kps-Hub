@@ -14,36 +14,36 @@ ThemeData theme() {
 
 TextTheme textTheme() {
   return const TextTheme(
-    headline1:
+    displayLarge:
         TextStyle(color: kTextColor, fontSize: 32, fontWeight: FontWeight.w700),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       color: kTextColor,
       fontSize: 20,
       fontWeight: FontWeight.w700,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: kTextColor,
       fontSize: 18,
       fontWeight: FontWeight.w700,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       color: kTextColor,
       fontSize: 18,
       fontWeight: FontWeight.w300,
     ),
-    headline5:
+    headlineSmall:
         TextStyle(color: kTextColor, fontSize: 16, fontWeight: FontWeight.w700),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       color: kTextColor,
       fontSize: 16,
       fontWeight: FontWeight.w300,
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       color: kTextColor,
       fontSize: 14,
       fontWeight: FontWeight.w700,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       color: kTextColor,
       fontSize: 14,
       fontWeight: FontWeight.w300,

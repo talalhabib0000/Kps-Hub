@@ -8,6 +8,7 @@ bool isDesktop(BuildContext context) =>
     MediaQuery.of(context).size.width >= 600;
 const String websiteUrl = 'https://www.komatsu.jp/';
 const String kpsWebsiteUrl = 'https://home.kps.komatsu/';
+const String mainUrl = 'https://fluttersatest.blob.core.windows.net';
 const String logoLink =
     'https://fluttersatest.blob.core.windows.net/kpshub/logo/';
 const String mainApiUrl =

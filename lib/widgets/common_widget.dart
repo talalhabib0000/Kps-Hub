@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kps_hub/widgets/widgets.dart';
+import '../constants/constants.dart';
 import '../screens/screens.dart';
 
 class CommonWidget extends StatefulWidget {
@@ -18,7 +21,7 @@ class _CommonWidgetState extends State<CommonWidget> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const ProductsScreen(),
-    const MoreScreen(),
+    MoreScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,49 +35,70 @@ class _CommonWidgetState extends State<CommonWidget> {
     return Scaffold(
       appBar: AppBar(
         leading: _selectedIndex == 0
-            ? const Icon(Icons.menu)
-            : IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: _selectedIndex != 0
+            ? const Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: CachedImageWidget(
+                  imageUrl: '$mainUrl/kpshub/logo/hub_logo.png',
+                ),
+              )
+            : GestureDetector(
+                onTap: _selectedIndex != 0
                     ? () {
                         setState(() {
                           _selectedIndex = 0;
                         });
                       }
                     : null,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: CachedImageWidget(
+                    imageUrl: '$mainUrl/kpshub/logo/hub_logo.png',
+                  ),
+                ),
               ),
-        title: Text(_pageTitles[_selectedIndex]),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Row(
-              children: const <Widget>[Text("Link"), Icon(Icons.arrow_forward)],
-            ),
-            onPressed: () {},
-          )
-        ],
+        title: Text(_pageTitles[_selectedIndex],
+            style: Theme.of(context).textTheme.displayMedium),
+        actions: const [AppBarLink()],
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: ('Home'),
+        items: [
+          BottomNavigationBarItemWidget(
+            iconUrl: '$mainUrl/kpshub/logo/home_blue.png',
+            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contacts),
-            label: ('Contact Us'),
+          BottomNavigationBarItemWidget(
+            iconUrl: '$mainUrl/kpshub/logo/products_blue.png',
+            label: 'Products',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: ('Products'),
+          BottomNavigationBarItemWidget(
+            iconUrl: '$mainUrl/kpshub/logo/more_blue.png',
+            label: 'More',
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: kSecondaryColor,
+        unselectedItemColor: kTextColor,
+        showUnselectedLabels: false,
       ),
     );
   }
+}
+
+class BottomNavigationBarItemWidget extends BottomNavigationBarItem {
+  BottomNavigationBarItemWidget({
+    required String iconUrl,
+    required String label,
+  }) : super(
+          icon: CachedNetworkImage(
+            imageUrl: iconUrl,
+            width: 24,
+            height: 24,
+            fit: BoxFit.contain,
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+          label: (label),
+        );
 }

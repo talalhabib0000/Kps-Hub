@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'config/theme.dart';
 import 'widgets/widgets.dart';
 
 void main() async {
@@ -18,9 +18,8 @@ class KPSHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'KPS Hub',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: theme(),
+        debugShowCheckedModeBanner: false,
         home: const CommonWidget());
   }
 }
