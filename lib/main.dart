@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kps_hub/screens/more_screen/test.dart';
 import 'config/theme.dart';
-import 'widgets/widgets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +20,6 @@ class KPSHub extends StatelessWidget {
         title: 'KPS Hub',
         theme: theme(),
         debugShowCheckedModeBanner: false,
-        home: const CommonWidget());
+        home: const TestScreen());
   }
 }
